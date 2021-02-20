@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="Wenote.Controls.Note"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Wenote.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:validationRules="clr-namespace:Wenote.ValidationRules"
+             xmlns:viewModels="clr-namespace:Wenote.ViewModels"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextOptions.TextFormattingMode="Ideal" 
+             TextOptions.TextRenderingMode="ClearType"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{StaticResource MaterialDesignFont}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModels:NoteViewModel}">
+    <materialDesign:Card>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0">
+                <TextBlock FontSize="25" Text="{Binding Path=Note.Title}" HorizontalAlignment="Left"/>
+                <DockPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="AccountCircle"/>
+                    <TextBlock Text="{Binding Path=Note.Author.Username}" Margin="5 -3 10 0"/>
+                    <materialDesign:PackIcon Kind="Calendar"/>
+                    <TextBlock Text="{Binding Path=DateStr}" Margin="5 -3 0 0"/>
+                </DockPanel>
+            </DockPanel>
+            <Separator
+                Grid.Row="1"
+                Style="{StaticResource MaterialDesignDarkSeparator}" />
+            <TextBlock Grid.Row="2" Text="{Binding Path=Note.Content}"></TextBlock>
+        </Grid>
+    </materialDesign:Card>
+</UserControl>

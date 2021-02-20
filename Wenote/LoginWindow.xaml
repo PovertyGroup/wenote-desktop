@@ -1,0 +1,72 @@
+﻿<Window x:Class="Wenote.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wenote"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:validationRules="clr-namespace:Wenote.ValidationRules"
+        xmlns:viewModels="clr-namespace:Wenote.ViewModels"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="ClearType"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{StaticResource MaterialDesignFont}"
+        ResizeMode="NoResize"
+        Title="登陆到 Wenote" Height="450" Width="350"
+        WindowStartupLocation="CenterScreen"
+        d:DataContext="{d:DesignInstance viewModels:LoginViewModel, IsDesignTimeCreatable=False}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="31*"/>
+            <RowDefinition Height="56*"/>
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Foreground="#DD000000" FontSize="18" HorizontalAlignment="Center">
+                Wenote
+            </TextBlock>
+            <TextBlock Foreground="#DD000000" FontSize="30" HorizontalAlignment="Center">
+                登陆
+            </TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="50,0,50,0">
+            <TextBox x:Name="UsernameBox" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                     materialDesign:TextFieldAssist.HasClearButton="True"
+                     Padding="10"
+                     materialDesign:HintAssist.Hint="电子邮件或用户名" Margin="0 10" TextChanged="UsernameBox_TextChanged">
+                <TextBox.Text>
+                    <Binding Path="Username" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validationRules:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <PasswordBox x:Name="PasswordBox" Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                         materialDesign:TextFieldAssist.HasClearButton="True"
+                         materialDesign:HintAssist.Hint="密码"
+                         Padding="10"
+                         Margin="0 10" PasswordChanged="PasswordBox_PasswordChanged" Cursor="IBeam"/>
+
+            <DockPanel Margin="0 10">
+                <Button x:Name="RegisterButton" HorizontalAlignment="Left"
+                        Width="70" FontSize="12" Height="30" Padding="0"
+                        Style="{StaticResource MaterialDesignFlatButton}">
+                    <TextBlock HorizontalAlignment="Left">
+                        创建账号
+                    </TextBlock>
+                </Button>
+                <Button x:Name="LoginButton" Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="75" FontSize="12" Height="30"
+                        Content="登陆" IsEnabled="False" Click="LoginButton_Click" HorizontalAlignment="Right"
+                        materialDesign:ButtonProgressAssist.IsIndicatorVisible="True" Cursor="Hand"/>
+            </DockPanel>
+        </StackPanel>
+        <materialDesign:Snackbar
+            Grid.Row="1"
+            x:Name="MsgSnackbar"
+            HorizontalAlignment="Stretch"
+            MessageQueue="{materialDesign:MessageQueue}"/>
+    </Grid>
+</Window>

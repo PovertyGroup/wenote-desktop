@@ -1,0 +1,117 @@
+﻿<Window x:Class="Wenote.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wenote"
+        xmlns:viewModels="clr-namespace:Wenote.ViewModels"
+        xmlns:models="clr-namespace:Wenote.Core.Models;assembly=Wenote.Core"
+        xmlns:converters="clr-namespace:Wenote.Converters"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:controls="clr-namespace:Wenote.Controls"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{StaticResource MaterialDesignFont}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        WindowStartupLocation="CenterScreen"
+        Title="Wenote" Height="900" Width="1500"
+        d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
+        Loaded="MainWindow_OnLoaded">
+    <Window.DataContext>
+        <viewModels:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="{x:Type controls:Note}">
+            <Setter Property="Margin" Value="100 10 100 10"/>
+        </Style>
+        <converters:NoteToNoteViewModelConverter x:Key="NoteToNoteViewModelConverter"/>
+    </Window.Resources>
+    <Grid>
+        <TabControl TabIndex="0"
+            Style="{StaticResource MaterialDesignNavigatilRailTabControl}">
+            <materialDesign:NavigationRailAssist.FloatingContent>
+                <Grid Margin="12">
+                    <materialDesign:PopupBox
+                        StaysOpen="True">
+                        <materialDesign:PopupBox.ToggleContent>
+                            <Image x:Name="AvatarImage" Source="{Binding Path=AvatarImage}" Height="48" Width="48">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="24,24" RadiusX="24" RadiusY="24" />
+                                </Image.Clip>
+                            </Image>
+                        </materialDesign:PopupBox.ToggleContent>
+                        <Grid Margin="10 0">
+                            <StackPanel>
+                                <TextBlock x:Name="UsernameTextBlock" HorizontalAlignment="Center" Margin="10"
+                                           Text="{Binding Path=Username}"/>
+                                <Button x:Name="LoginButton"
+                                        Visibility="{Binding Path=ShowLoginButton, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        Click="LoginButton_Click" Style="{StaticResource MaterialDesignRaisedButton}">
+                                    登陆
+                                </Button>
+                                <Button x:Name="LogoutButton"
+                                        Visibility="{Binding Path=ShowLogoutButton, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        Click="LogoutButton_Click" Style="{StaticResource MaterialDesignRaisedButton}"
+                                        Background="#E20F5E" BorderBrush="#E20F5E">
+                                    退出
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:PopupBox>
+                </Grid>
+            </materialDesign:NavigationRailAssist.FloatingContent>
+            <TabItem
+                Header="{materialDesign:PackIcon Kind=NotebookMultiple, Size=24}"
+                Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <ScrollViewer>
+                    <ItemsControl HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="10"
+                                  ItemsSource="{Binding Path=RecommendNotes}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <controls:Note Height="300" Width="1000"
+                                                   DataContext="{Binding Converter={StaticResource NoteToNoteViewModelConverter}}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem
+                Header="{materialDesign:PackIcon Kind=NotebookEdit, Size=24}"
+                Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <ScrollViewer>
+                    <ItemsControl HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="10"
+                                  ItemsSource="{Binding Path=OwnedNotes}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <controls:Note Height="300" Width="1000"
+                                                   DataContext="{Binding Converter={StaticResource NoteToNoteViewModelConverter}}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem
+                Header="{materialDesign:PackIcon Kind=Cog, Size=24}"
+                Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <TextBlock>
+                    This is Settings block.
+                </TextBlock>
+            </TabItem>
+            <TabItem
+                Header="{materialDesign:PackIcon Kind=AccountCircle, Size=24}"
+                Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <TextBlock>
+                    This is My block.
+                </TextBlock>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
