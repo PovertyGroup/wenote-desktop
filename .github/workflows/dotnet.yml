@@ -21,7 +21,8 @@ jobs:
       run: dotnet restore
     - name: Build
       run: |
-        dotnet publish
+        dotnet publish -c Release
+        choco install zip
         zip -r wenote.zip Wenote\bin\Debug\net5.0-windows\win10-x64
     - name: Create Release
       id: create_release
