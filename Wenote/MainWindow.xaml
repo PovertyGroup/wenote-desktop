@@ -31,7 +31,7 @@
         <converters:NoteToNoteViewModelConverter x:Key="NoteToNoteViewModelConverter"/>
     </Window.Resources>
     <Grid>
-        <TabControl TabIndex="0"
+        <TabControl TabIndex="0" materialDesign:ShadowAssist.ShadowDepth="Depth2"
             Style="{StaticResource MaterialDesignNavigatilRailTabControl}">
             <materialDesign:NavigationRailAssist.FloatingContent>
                 <Grid Margin="12">
@@ -101,16 +101,38 @@
             <TabItem
                 Header="{materialDesign:PackIcon Kind=Cog, Size=24}"
                 Style="{StaticResource MaterialDesignNavigationRailTabItem}">
-                <TextBlock>
-                    This is Settings block.
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40">
+                    暂时还没有设置。
                 </TextBlock>
             </TabItem>
             <TabItem
                 Header="{materialDesign:PackIcon Kind=AccountCircle, Size=24}"
                 Style="{StaticResource MaterialDesignNavigationRailTabItem}">
-                <TextBlock>
-                    This is My block.
-                </TextBlock>
+                <StackPanel>
+                    <Grid Margin="50" Height="128" VerticalAlignment="Top">
+                        <DockPanel>
+                            <Image x:Name="AvatarImageDetail" Source="{Binding Path=AvatarImage}" Height="128" Width="128" VerticalAlignment="Top">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="64,64" RadiusX="64" RadiusY="64" />
+                                </Image.Clip>
+                            </Image>
+                            <StackPanel Margin="20 10 0 0">
+                                <TextBlock Text="{Binding Path=Username}" FontSize="20" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Path=Bio}" Margin="0 10 0 0"/>
+                            </StackPanel>
+                            <Button x:Name="LogoutButtonDetail" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                    Visibility="{Binding Path=ShowLogoutButton, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Click="LogoutButton_Click" Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Background="#E20F5E" BorderBrush="#E20F5E" Width="100">
+                                退出
+                            </Button>
+                        </DockPanel>
+                    </Grid>
+                    <Grid>
+                        <!-- Tab Control TODO -->
+                    </Grid>
+                </StackPanel>
+                
             </TabItem>
         </TabControl>
     </Grid>

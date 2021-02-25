@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Wenote.ViewModels;
 
 namespace Wenote.Controls {
     /// <summary>
@@ -20,6 +21,16 @@ namespace Wenote.Controls {
     public partial class Note : UserControl {
         public Note() {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            var viewWindow = new NoteView {
+                DataContext = new NoteViewViewModel {
+                    NoteMd = (this.DataContext as NoteViewModel).Note.Content,
+                    NoteTitle = (this.DataContext as NoteViewModel).Note.Title
+                }
+            };
+            viewWindow.ShowDialog();
         }
     }
 }

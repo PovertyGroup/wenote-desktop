@@ -28,10 +28,13 @@
             <DockPanel Grid.Row="0">
                 <TextBlock FontSize="25" Text="{Binding Path=Note.Title}" HorizontalAlignment="Left"/>
                 <DockPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="AccountCircle"/>
-                    <TextBlock Text="{Binding Path=Note.Author.Username}" Margin="5 -3 10 0"/>
-                    <materialDesign:PackIcon Kind="Calendar"/>
-                    <TextBlock Text="{Binding Path=DateStr}" Margin="5 -3 0 0"/>
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Center" Margin="0 0 20 0" Click="Button_Click">
+                        查看
+                    </Button>
+                    <materialDesign:PackIcon Kind="AccountCircle" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding Path=Note.Author.Username}" Margin="5 -3 10 0"  VerticalAlignment="Center"/>
+                    <materialDesign:PackIcon Kind="Calendar"  VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding Path=DateStr}" Margin="5 -3 0 0"  VerticalAlignment="Center"/>
                 </DockPanel>
             </DockPanel>
             <Separator

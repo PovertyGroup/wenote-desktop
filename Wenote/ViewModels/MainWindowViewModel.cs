@@ -15,6 +15,8 @@ namespace Wenote.ViewModels {
 
         public ImageSource AvatarImage => new BitmapImage(new Uri(Store.IsLoggedIn ? Store.LoggedInUser.AvatarUrl : "pack://application:,,,/Resources/default-avatar.png"));
         public string Username => Store.IsLoggedIn ? Store.LoggedInUser.Username : "游客";
+        public string Bio => Store.IsLoggedIn ? Store.LoggedInUser.Bio : "";
+        public Gender Gender => Store.IsLoggedIn ? Store.LoggedInUser.Gender : Gender.Unknown;
         public bool ShowLogoutButton => Store.IsLoggedIn;
         public bool ShowLoginButton => !Store.IsLoggedIn;
 
