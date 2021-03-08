@@ -15,7 +15,7 @@ Based on `dotnet 5.0` with multi-platform support.
 WPF project providing the UI.  
 Based on `dotnet 5.0`.
 
-## Library
+## Libraries
 - MaterialDesignThemes
 - Markdig
   - Neo.Markdig.Xaml
